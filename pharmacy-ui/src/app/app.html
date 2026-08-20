@@ -1,0 +1,348 @@
+<div class="container">
+
+  <h1>ABC Pharmacy</h1>
+
+  <div class="toolbar">
+
+    <div class="search-section">
+
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search medicine by name"
+      />
+
+      <button
+        type="button"
+        (click)="search()"
+      >
+        Search
+      </button>
+
+    </div>
+
+    <button
+      type="button"
+      class="add-medicine-button"
+      (click)="openAddMedicineModal()"
+    >
+      Add Medicine
+    </button>
+
+  </div>
+
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Expiry Date</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Brand</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr
+        *ngFor="let medicine of medicines"
+        [class.expiring]="isExpiringSoon(medicine.expiryDate)"
+        [class.low-stock]="
+          !isExpiringSoon(medicine.expiryDate)
+          && isLowStock(medicine.quantity)
+        "
+      >
+
+        <td>
+          {{ medicine.fullName }}
+        </td>
+
+        <td>
+          {{ medicine.expiryDate | date:'dd-MM-yyyy' }}
+        </td>
+
+        <td>
+          {{ medicine.quantity }}
+        </td>
+
+        <td>
+          {{ medicine.price | number:'1.2-2' }}
+        </td>
+
+        <td>
+          {{ medicine.brand }}
+        </td>
+        <td>
+      <button
+        type="button"
+        (click)="openSellModal(medicine)">
+        Sell
+      </button>
+</td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+  <h2 class="sales-title">
+  Sales History
+</h2>
+
+<table>
+
+  <thead>
+
+    <tr>
+      <th>Medicine Name</th>
+      <th>Quantity Sold</th>
+      <th>Sold At</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let sale of sales">
+
+      <td>
+        {{ sale.medicineName }}
+      </td>
+
+      <td>
+        {{ sale.quantitySold }}
+      </td>
+
+      <td>
+        {{ sale.soldAt | date:'dd-MM-yyyy HH:mm' }}
+      </td>
+
+    </tr>
+
+  </tbody>
+
+</table>
+
+
+  <!-- Add Medicine Popup -->
+
+  <div
+    class="modal-overlay"
+    *ngIf="showAddMedicineModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h2>Add Medicine</h2>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeAddMedicineModal()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <div class="form-field">
+
+          <label>Medicine Name</label>
+
+          <input
+            type="text"
+            [(ngModel)]="newMedicine.fullName"
+            placeholder="Enter medicine name"
+          />
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Notes</label>
+
+          <textarea
+            [(ngModel)]="newMedicine.notes"
+            rows="3"
+            placeholder="Enter notes"
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Expiry Date</label>
+
+          <input
+            type="date"
+            [(ngModel)]="newMedicine.expiryDate"
+          />
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Quantity</label>
+
+          <input
+            type="number"
+            [(ngModel)]="newMedicine.quantity"
+            min="0"
+          />
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Price</label>
+
+          <input
+            type="number"
+            [(ngModel)]="newMedicine.price"
+            min="0"
+            step="0.01"
+          />
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Brand</label>
+
+          <input
+            type="text"
+            [(ngModel)]="newMedicine.brand"
+            placeholder="Enter brand"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="closeAddMedicineModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="addMedicine()"
+        >
+          Add Medicine
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  class="modal-overlay"
+  *ngIf="showSellModal"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>Sell Medicine</h2>
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeSellModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div
+      class="modal-body"
+      *ngIf="selectedMedicine"
+    >
+
+      <div class="form-field">
+
+        <label>Medicine</label>
+
+        <input
+          type="text"
+          [value]="selectedMedicine.fullName"
+          disabled
+        />
+
+      </div>
+
+      <div class="form-field">
+
+        <label>Available Quantity</label>
+
+        <input
+          type="number"
+          [value]="selectedMedicine.quantity"
+          disabled
+        />
+
+      </div>
+
+      <div class="form-field">
+
+        <label>Quantity to Sell</label>
+
+        <input
+          type="number"
+          [(ngModel)]="saleQuantity"
+          min="1"
+        />
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="closeSellModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        class="save-button"
+        (click)="sellMedicine()"
+      >
+        Sell
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

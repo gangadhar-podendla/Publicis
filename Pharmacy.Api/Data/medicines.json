@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "FullName": "Paracetamol 500mg",
+    "Notes": "For fever and mild pain",
+    "ExpiryDate": "2027-02-15T00:00:00",
+    "Quantity": 19,
+    "Price": 40.50,
+    "Brand": "Crocin"
+  },
+  {
+    "Id": 2,
+    "FullName": "Azithromycin 500mg",
+    "Notes": "Antibiotic",
+    "ExpiryDate": "2026-09-05T00:00:00",
+    "Quantity": 0,
+    "Price": 120.00,
+    "Brand": "Azithral"
+  },
+  {
+    "Id": 3,
+    "FullName": "Cetirizine 10mg",
+    "Notes": "For allergy symptoms",
+    "ExpiryDate": "2027-05-20T00:00:00",
+    "Quantity": 7,
+    "Price": 35.75,
+    "Brand": "Cetzine"
+  },
+  {
+    "Id": 4,
+    "FullName": "Ibuprofen 400mg",
+    "Notes": "Pain relief medicine",
+    "ExpiryDate": "2026-08-30T00:00:00",
+    "Quantity": 5,
+    "Price": 65.25,
+    "Brand": "Brufen"
+  },
+  {
+    "Id": 5,
+    "FullName": "Dolo 650mg",
+    "Notes": "For fever and body pain",
+    "ExpiryDate": "2027-12-31T00:00:00",
+    "Quantity": 30,
+    "Price": 35.50,
+    "Brand": "Micro Labs"
+  }
+]

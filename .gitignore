@@ -1,0 +1,59 @@
+# =========================
+# .NET
+# =========================
+
+**/bin/
+**/obj/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+.vs/
+
+
+# =========================
+# Angular / Node
+# =========================
+
+**/node_modules/
+
+pharmacy-ui/.angular/
+pharmacy-ui/.cache/
+
+# Ignore Angular build output
+pharmacy-ui/dist/
+
+
+# =========================
+# VS Code
+# =========================
+
+.vscode/
+
+
+# =========================
+# macOS
+# =========================
+
+.DS_Store
+**/.DS_Store
+
+
+# =========================
+# Logs
+# =========================
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# =========================
+# IMPORTANT
+# Do NOT ignore Pharmacy.Api/wwwroot
+# because the compiled Angular UI
+# must be committed for dotnet run.
+# =========================
