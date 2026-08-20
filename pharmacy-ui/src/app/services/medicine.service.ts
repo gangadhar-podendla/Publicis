@@ -10,7 +10,7 @@ import { Medicine } from '../models/medicine';
 export class MedicineService {
 
   private readonly apiUrl =
-    '/api/medicines';
+    'http://localhost:5282/api/medicines';
 
   constructor(
     private http: HttpClient

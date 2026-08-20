@@ -11,7 +11,7 @@ import { SaleRequest } from '../models/salerequest';
 export class SaleService {
 
   private readonly apiUrl =
-    '/api/sales';
+    'http://localhost:5282/api/sales';
 
   constructor(
     private http: HttpClient

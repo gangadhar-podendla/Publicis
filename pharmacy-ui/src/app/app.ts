@@ -21,7 +21,7 @@ export class App implements OnInit {
 
   medicines: Medicine[] = [];
 
-  searchText = '';
+  searchText : string | undefined = undefined;
 
   showAddMedicineModal = false;
 
@@ -132,16 +132,8 @@ sellMedicine(): void {
       .getMedicines(this.searchText)
       .subscribe({
         next: (data: Medicine[]) => {
-
-          console.log('Medicines received: from app', data);
-
           this.medicines = data;
           this.cdr.detectChanges();
-
-          console.log(
-            'Medicines assigned: from app',
-            this.medicines
-          );
         },
 
         error: error => {
@@ -153,7 +145,8 @@ sellMedicine(): void {
       });
   }
 
-  search(): void {
+  search(searchTerm: string | undefined): void {
+    this.searchText = searchTerm || '';
     this.loadMedicines();
   }
 
